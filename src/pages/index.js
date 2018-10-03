@@ -2,13 +2,19 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import font from './font.css'
+import moment from 'moment'
 
 const renderPost = (post, index) => {
+  const postDate = moment(post.published).format('MMM D, YYYY h:m:s A')
+  const timeDisplay = <span>{postDate}</span>
   return (
     <div key={post.id} className="post" style={{ marginBottom: '4rem' }}>
       <h2>
         #{index} - {post.title}
       </h2>
+      <h3>
+        Posted by {post.author.full_name} on {timeDisplay}
+      </h3>
       <div dangerouslySetInnerHTML={{ __html: post.body }} />
     </div>
   )
