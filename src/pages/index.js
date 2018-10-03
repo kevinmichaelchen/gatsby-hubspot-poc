@@ -3,10 +3,12 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 
-const renderPost = post => {
+const renderPost = (post, index) => {
   return (
-    <div className="post" style={{ marginBottom: '4rem' }}>
-      <h2>{post.title}</h2>
+    <div key={post.id} className="post" style={{ marginBottom: '4rem' }}>
+      <h2>
+        #{index} - {post.title}
+      </h2>
       <div dangerouslySetInnerHTML={{ __html: post.body }} />
     </div>
   )
@@ -18,7 +20,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <h1>Hi people</h1>
-      {posts.map(renderPost)}
+      {posts.map((p, i) => renderPost(p, i))}
       <pre>{stuff}</pre>
       <Link to="/page-2/">Go to page 2</Link>
     </Layout>
@@ -27,7 +29,7 @@ const IndexPage = ({ data }) => {
 
 export const query = graphql`
   query PostQuery {
-    allHubspotPost(limit: 10) {
+    allHubspotPost(limit: 2) {
       edges {
         node {
           id
