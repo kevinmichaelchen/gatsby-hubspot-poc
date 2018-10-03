@@ -1,3 +1,10 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+console.log('WOOOOOOOOOO ', process.env.NODE_ENV)
+console.log('WOOO', process.env.GATSBY_HUBSPOT_API_KEY)
+
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
@@ -17,5 +24,15 @@ module.exports = {
       },
     },
     'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-source-hubspot',
+      options: {
+        key: `${process.env.GATSBY_HUBSPOT_API_KEY}`,
+        filters: {
+          limit: 2,
+          state: 'PUBLISHED',
+        },
+      },
+    },
   ],
 }
