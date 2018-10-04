@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
-import font from './font.css'
 import moment from 'moment'
 
 const renderTopic = (topic, index) => (
@@ -34,7 +33,6 @@ const IndexPage = ({ data }) => {
   const posts = data.allHubspotPost.edges.map(p => p.node)
   return (
     <Layout>
-      <h1>Hi people</h1>
       {posts.map((p, i) => renderPost(p, i))}
       <pre>{stuff}</pre>
       <Link to="/page-2/">Go to page 2</Link>
