@@ -24,7 +24,7 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     {
-      resolve: 'gatsby-source-hubspot',
+      resolve: '@kevinmichaelchen/gatsby-source-hubspot',
       options: {
         key: `${process.env.GATSBY_HUBSPOT_API_KEY}`,
         filters: {
