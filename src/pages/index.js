@@ -13,8 +13,11 @@ const renderPost = (post, index) => {
         #{index} - {post.title}
       </h2>
       <h3>
-        Posted by {post.author.full_name} on {timeDisplay}
+        Posted by{' '}
+        <a href={`/blog/author/${post.author.slug}`}>{post.author.full_name}</a>{' '}
+        on {timeDisplay}
       </h3>
+      <h4>{post.topics && post.topics.map(t => t.name).join(' | ')}</h4>
       <div dangerouslySetInnerHTML={{ __html: post.body }} />
     </div>
   )
@@ -65,6 +68,10 @@ export const query = graphql`
           updated
           created
           slug
+          topics {
+            id
+            name
+          }
         }
       }
     }

@@ -28,7 +28,7 @@ module.exports = {
       options: {
         key: `${process.env.GATSBY_HUBSPOT_API_KEY}`,
         filters: {
-          limit: 2,
+          limit: 20,
           state: 'PUBLISHED',
         },
       },
