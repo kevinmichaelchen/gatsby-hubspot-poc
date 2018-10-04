@@ -4,6 +4,12 @@ import Layout from '../components/layout'
 import font from './font.css'
 import moment from 'moment'
 
+const renderTopic = (topic, index) => (
+  <span key={index} style={{ marginRight: '0.5rem' }}>
+    <Link to={`/topics/${topic.name}`}>{topic.name}</Link>
+  </span>
+)
+
 const renderPost = (post, index) => {
   const postDate = moment(post.published).format('MMM D, YYYY h:m:s A')
   const timeDisplay = <span>{postDate}</span>
@@ -17,7 +23,7 @@ const renderPost = (post, index) => {
         <a href={`/blog/author/${post.author.slug}`}>{post.author.full_name}</a>{' '}
         on {timeDisplay}
       </h3>
-      <h4>{post.topics && post.topics.map(t => t.name).join(' | ')}</h4>
+      <h4>{post.topics && post.topics.map((t, i) => renderTopic(t, i))}</h4>
       <div dangerouslySetInnerHTML={{ __html: post.body }} />
     </div>
   )
