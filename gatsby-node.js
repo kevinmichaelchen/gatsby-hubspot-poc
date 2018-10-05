@@ -11,11 +11,12 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
-            allHubspotTopic(limit: 2) {
+            allHubspotTopic(limit: 2000) {
               edges {
                 node {
                   id
                   name
+                  slug
                 }
               }
             }

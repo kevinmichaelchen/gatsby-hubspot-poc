@@ -1,22 +1,25 @@
 import * as PropTypes from 'prop-types'
 import React from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 
 class TopicTemplate extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
-      hubspotTopic: PropTypes.object.isRequired,
-    }),
+      hubspotTopic: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
   }
   render() {
-    const {
-      hubspotTopic: { id, name },
-    } = this.props
+    const { hubspotTopic } = this.props.data
+    const { id, name } = hubspotTopic
     return (
       <Layout location={this.props.location}>
-        {id} - {name}
-        <pre>{JSON.stringify(this.props, null, 2)}</pre>
+        <Link to={'/'}>Back</Link>
+        <div>Topic ID: {id}</div>
+        <div>Topic Name: {name}</div>
       </Layout>
     )
   }
