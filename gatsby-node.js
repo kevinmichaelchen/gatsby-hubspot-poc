@@ -32,7 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
         console.log('result.data =', JSON.stringify(result.data))
         result.data.allHubspotTopic.edges.forEach(edge => {
           createPage({
-            path: `/${edge.node.slug}/`,
+            path: `/topics/${edge.node.slug}/`,
             component: topicTemplate,
             context: {
               id: edge.node.id,
