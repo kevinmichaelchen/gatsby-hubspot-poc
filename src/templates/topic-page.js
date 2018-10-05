@@ -29,7 +29,7 @@ export default TopicTemplate
 export const pageQuery = graphql`
   query($id: String!) {
     # Select the topic with this id.
-    HubspotTopic(id: { eq: $id }) {
+    hubspotTopic(id: { eq: $id }) {
       id
       name
     }
