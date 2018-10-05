@@ -33,7 +33,7 @@ export default TopicTemplate
 //
 // All GraphQL queries in Gatsby are run at build-time and
 // loaded as plain JSON files so have minimal client cost.
-export const pageQuery = graphql`
+export const topicQuery = graphql`
   query($id: String!) {
     # Select the topic with this id.
     hubspotTopic(id: { eq: $id }) {

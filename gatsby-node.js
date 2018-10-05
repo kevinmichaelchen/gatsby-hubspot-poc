@@ -6,7 +6,7 @@ exports.createPages = ({ graphql, actions }) => {
   console.log('EXECUTING GATSBY WOOOOOOOO')
   const { createPage } = actions
 
-  return new Promise((resolve, reject) => {
+  const createBlogTopicPagesPromise = new Promise((resolve, reject) => {
     resolve(
       graphql(
         `
@@ -47,4 +47,46 @@ exports.createPages = ({ graphql, actions }) => {
       })
     )
   })
+  const createBlogPostPagesPromise = new Promise((resolve, reject) => {
+    resolve(
+      graphql(
+        `
+          {
+            allHubspotPost(limit: 2000) {
+              edges {
+                node {
+                  id
+                  title
+                  slug
+                }
+              }
+            }
+          }
+        `
+      ).then(result => {
+        if (result.errors) {
+          console.log('FOUND ERRORS')
+          reject(new Error(result.errors))
+        }
+
+        console.log(
+          'Creating pages for',
+          result.data.allHubspotPost.edges.length,
+          'blog posts'
+        )
+        result.data.allHubspotPost.edges.forEach(({ node }) => {
+          createPage({
+            path: `/posts/${node.slug}/`,
+            component: path.resolve(`src/templates/post-page.js`),
+            context: {
+              id: node.id,
+            },
+          })
+        })
+
+        resolve()
+      })
+    )
+  })
+  return Promise.join(createBlogPostPagesPromise, createBlogTopicPagesPromise)
 }

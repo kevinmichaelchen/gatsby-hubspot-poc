@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import moment from 'moment'
 
-const renderTopic = (topic, index) => {
+export const renderTopic = (topic, index) => {
   return (
     <span key={index} style={{ marginRight: '0.5rem' }}>
       <Link to={`/topics/${topic.slug}`}>{topic.name}</Link>
