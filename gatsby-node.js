@@ -27,20 +27,22 @@ exports.createPages = ({ graphql, actions }) => {
           reject(new Error(result.errors))
         }
 
-        const topicTemplate = path.resolve(`src/templates/topic-page.js`)
-
-        console.log('result.data =', JSON.stringify(result.data))
-        result.data.allHubspotTopic.edges.forEach(edge => {
+        console.log(
+          'Creating pages for',
+          result.data.allHubspotTopic.edges.length,
+          'topics'
+        )
+        result.data.allHubspotTopic.edges.forEach(({ node }) => {
           createPage({
-            path: `/topics/${edge.node.slug}/`,
-            component: topicTemplate,
+            path: `/topics/${node.slug}/`,
+            component: path.resolve(`src/templates/topic-page.js`),
             context: {
-              id: edge.node.id,
+              id: node.id,
             },
           })
         })
 
-        return
+        resolve()
       })
     )
   })

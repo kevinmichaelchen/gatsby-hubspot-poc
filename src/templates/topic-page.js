@@ -6,12 +6,16 @@ import Layout from '../components/layout'
 class TopicTemplate extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
-      topicsJson: PropTypes.object.isRequired,
+      hubspotTopic: PropTypes.object.isRequired,
     }),
   }
   render() {
+    const {
+      hubspotTopic: { id, name },
+    } = this.props
     return (
       <Layout location={this.props.location}>
+        {id} - {name}
         <pre>{JSON.stringify(this.props, null, 2)}</pre>
       </Layout>
     )
