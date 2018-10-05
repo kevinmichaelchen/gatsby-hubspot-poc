@@ -16,16 +16,15 @@ const renderPost = (post, index) => {
   const timeDisplay = <span>{postDate}</span>
   return (
     <div key={post.id} className="post" style={{ marginBottom: '4rem' }}>
-      <h2>
-        #{index} - {post.title}
-      </h2>
+      <h1>{post.title}</h1>
       <h3>
         Posted by{' '}
         <a href={`/blog/author/${post.author.slug}`}>{post.author.full_name}</a>{' '}
         on {timeDisplay}
       </h3>
       <h4>{post.topics && post.topics.map((t, i) => renderTopic(t, i))}</h4>
-      <div dangerouslySetInnerHTML={{ __html: post.body }} />
+      <div dangerouslySetInnerHTML={{ __html: post.summary }} />
+      <Link to={`/posts/${post.slug}`}>Read more</Link>
     </div>
   )
 }
