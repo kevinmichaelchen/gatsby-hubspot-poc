@@ -3,11 +3,13 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import moment from 'moment'
 
-const renderTopic = (topic, index) => (
-  <span key={index} style={{ marginRight: '0.5rem' }}>
-    <Link to={`/topics/${topic.name}`}>{topic.name}</Link>
-  </span>
-)
+const renderTopic = (topic, index) => {
+  return (
+    <span key={index} style={{ marginRight: '0.5rem' }}>
+      <Link to={`/topics/${topic.slug}`}>{topic.name}</Link>
+    </span>
+  )
+}
 
 const renderPost = (post, index) => {
   const postDate = moment(post.published).format('MMM D, YYYY h:m:s A')
@@ -75,6 +77,7 @@ export const query = graphql`
           topics {
             id
             name
+            slug
           }
         }
       }
