@@ -31,13 +31,9 @@ const renderPost = (post, index) => {
 
 const IndexPage = ({ data }) => {
   const rawData = JSON.stringify(data, null, 2)
+  console.log('RAW DATA =', rawData)
   const posts = data.allHubspotPost.edges.map(p => p.node)
-  return (
-    <Layout>
-      {posts.map((p, i) => renderPost(p, i))}
-      <pre>{rawData}</pre>
-    </Layout>
-  )
+  return <Layout>{posts.map((p, i) => renderPost(p, i))}</Layout>
 }
 
 export const query = graphql`
