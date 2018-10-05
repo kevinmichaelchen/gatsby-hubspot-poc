@@ -1,6 +1,6 @@
 {
-  "name": "irisvr-gatsby-hubspot-poc",
-  "description": "IrisVR Gatsby Hubspot Proof of Concept",
+  "name": "gatsby-hubspot-poc",
+  "description": "Gatsby Hubspot Proof of Concept",
   "version": "1.0.0",
   "author": "Kevin Chen <kevin.chen@irisvr.com>",
   "dependencies": {
