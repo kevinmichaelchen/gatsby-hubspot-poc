@@ -30,13 +30,12 @@ const renderPost = (post, index) => {
 }
 
 const IndexPage = ({ data }) => {
-  const stuff = JSON.stringify(data, null, 2)
+  const rawData = JSON.stringify(data, null, 2)
   const posts = data.allHubspotPost.edges.map(p => p.node)
   return (
     <Layout>
       {posts.map((p, i) => renderPost(p, i))}
-      <pre>{stuff}</pre>
-      <Link to="/page-2/">Go to page 2</Link>
+      <pre>{rawData}</pre>
     </Layout>
   )
 }
