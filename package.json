@@ -1,16 +1,17 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "irisvr-gatsby-hubspot-poc",
+  "description": "IrisVR Gatsby Hubspot Proof of Concept",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Kevin Chen <kevin.chen@irisvr.com>",
   "dependencies": {
-    "@kevinmichaelchen/gatsby-source-hubspot": "^1.1.0",
+    "@kevinmichaelchen/gatsby-source-hubspot": "^1.5.0",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
     "gatsby-plugin-manifest": "^2.0.2",
     "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0"

@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
-import font from './font.css'
 import moment from 'moment'
 
-const renderTopic = (topic, index) => (
-  <span key={index} style={{ marginRight: '0.5rem' }}>
-    <Link to={`/topics/${topic.name}`}>{topic.name}</Link>
-  </span>
-)
+const renderTopic = (topic, index) => {
+  return (
+    <span key={index} style={{ marginRight: '0.5rem' }}>
+      <Link to={`/topics/${topic.slug}`}>{topic.name}</Link>
+    </span>
+  )
+}
 
 const renderPost = (post, index) => {
   const postDate = moment(post.published).format('MMM D, YYYY h:m:s A')
@@ -34,7 +35,6 @@ const IndexPage = ({ data }) => {
   const posts = data.allHubspotPost.edges.map(p => p.node)
   return (
     <Layout>
-      <h1>Hi people</h1>
       {posts.map((p, i) => renderPost(p, i))}
       <pre>{stuff}</pre>
       <Link to="/page-2/">Go to page 2</Link>
@@ -77,6 +77,7 @@ export const query = graphql`
           topics {
             id
             name
+            slug
           }
         }
       }
