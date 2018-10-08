@@ -45,7 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
     `
   )
 
-  return new Promise((resolve, reject) => {
+  const promiseA = new Promise((resolve, reject) => {
     resolve(
       queryPages.then(result => {
         if (result.errors || !result.data) {
@@ -68,35 +68,41 @@ exports.createPages = ({ graphql, actions }) => {
           })
         })
 
-        queryTopics.then(result => {
-          if (result.errors || !result.data) {
-            console.log('FOUND ERRORS')
-            reject(new Error(result.errors))
-          }
+        resolve()
+      })
+    )
+  })
 
-          console.log(
-            'Creating pages for',
-            result.data.allHubspotTopic.edges.length,
-            'topics'
-          )
-          result.data.allHubspotTopic.edges.forEach(({ node }) => {
-            createPage({
-              path: `/topics/${node.slug}/`,
-              component: path.resolve(`src/templates/topic-page.js`),
-              context: {
-                id: node.id,
-                id_str: node.id + '',
-                slug: node.slug,
-                name: node.name,
-              },
-            })
+  const promiseB = new Promise((resolve, reject) => {
+    resolve(
+      queryTopics.then(result => {
+        if (result.errors || !result.data) {
+          console.log('FOUND ERRORS')
+          reject(new Error(result.errors))
+        }
+
+        console.log(
+          'Creating pages for',
+          result.data.allHubspotTopic.edges.length,
+          'topics'
+        )
+        result.data.allHubspotTopic.edges.forEach(({ node }) => {
+          createPage({
+            path: `/topics/${node.slug}/`,
+            component: path.resolve(`src/templates/topic-page.js`),
+            context: {
+              id: node.id,
+              id_str: node.id + '',
+              slug: node.slug,
+              name: node.name,
+            },
           })
-
-          resolve()
         })
 
         resolve()
       })
     )
   })
+
+  return Promise.join(promiseA, promiseB)
 }
