@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Kevin Chen <kevin.chen@irisvr.com>",
   "dependencies": {
-    "@kevinmichaelchen/gatsby-source-hubspot": "^1.10.0",
+    "@kevinmichaelchen/gatsby-source-hubspot": "^1.11.0",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
     "gatsby-plugin-manifest": "^2.0.2",
