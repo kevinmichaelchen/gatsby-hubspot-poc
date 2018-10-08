@@ -6,10 +6,21 @@ import { renderPost } from '../pages'
 
 class TopicTemplate extends React.Component {
   static propTypes = {
+    pageContext: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      slug: PropTypes.string,
+    }),
     data: PropTypes.shape({
-      hubspotTopic: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
+      allHubspotPost: PropTypes.shape({
+        edges: PropTypes.arrayOf(
+          PropTypes.shape({
+            node: PropTypes.shape({
+              id: PropTypes.string,
+              title: PropTypes.string,
+            }),
+          })
+        ),
       }).isRequired,
     }).isRequired,
   }
