@@ -76,6 +76,7 @@ export const pageQuery = graphql`
       updated
       created
       slug
+      topic_ids
       topics {
         id
         name

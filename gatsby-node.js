@@ -6,65 +6,49 @@ exports.createPages = ({ graphql, actions }) => {
   console.log('EXECUTING GATSBY WOOOOOOOO')
   const { createPage } = actions
 
-  const createBlogTopicPagesPromise = new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            allHubspotTopic(limit: 2000) {
-              edges {
-                node {
-                  id
-                  name
-                  slug
-                }
-              }
+  const queryTopics = graphql(
+    `
+      {
+        allHubspotTopic(limit: 2000) {
+          edges {
+            node {
+              id
+              name
+              slug
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log('FOUND ERRORS')
-          reject(new Error(result.errors))
         }
+      }
+    `
+  )
 
-        console.log(
-          'Creating pages for',
-          result.data.allHubspotTopic.edges.length,
-          'topics'
-        )
-        result.data.allHubspotTopic.edges.forEach(({ node }) => {
-          createPage({
-            path: `/topics/${node.slug}/`,
-            component: path.resolve(`src/templates/topic-page.js`),
-            context: {
-              id: node.id,
-            },
-          })
-        })
-
-        resolve()
-      })
-    )
-  })
-  const createBlogPostPagesPromise = new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            allHubspotPost(limit: 2000) {
-              edges {
-                node {
-                  id
-                  title
-                  slug
-                }
+  const queryPages = graphql(
+    `
+      {
+        allHubspotPost(limit: 2000) {
+          edges {
+            node {
+              id
+              title
+              slug
+              topics {
+                id
+                name
+                slug
               }
+              topic_ids
+              topic_ids_str
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
+        }
+      }
+    `
+  )
+
+  return new Promise((resolve, reject) => {
+    resolve(
+      queryPages.then(result => {
+        if (result.errors || !result.data) {
           console.log('FOUND ERRORS')
           reject(new Error(result.errors))
         }
@@ -84,9 +68,35 @@ exports.createPages = ({ graphql, actions }) => {
           })
         })
 
+        queryTopics.then(result => {
+          if (result.errors || !result.data) {
+            console.log('FOUND ERRORS')
+            reject(new Error(result.errors))
+          }
+
+          console.log(
+            'Creating pages for',
+            result.data.allHubspotTopic.edges.length,
+            'topics'
+          )
+          result.data.allHubspotTopic.edges.forEach(({ node }) => {
+            createPage({
+              path: `/topics/${node.slug}/`,
+              component: path.resolve(`src/templates/topic-page.js`),
+              context: {
+                id: node.id,
+                id_str: node.id + '',
+                slug: node.slug,
+                name: node.name,
+              },
+            })
+          })
+
+          resolve()
+        })
+
         resolve()
       })
     )
   })
-  return Promise.join(createBlogPostPagesPromise, createBlogTopicPagesPromise)
 }
