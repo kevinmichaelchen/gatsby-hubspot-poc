@@ -11,7 +11,7 @@ export const renderTopic = (topic, index) => {
   )
 }
 
-const renderPost = (post, index) => {
+export const renderPost = (post, index) => {
   const postDate = moment(post.published).format('MMM D, YYYY h:m:s A')
   const timeDisplay = <span>{postDate}</span>
   return (

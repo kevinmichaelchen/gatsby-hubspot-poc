@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types'
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
+import { renderPost } from '../pages'
 
 class TopicTemplate extends React.Component {
   static propTypes = {
@@ -21,13 +22,15 @@ class TopicTemplate extends React.Component {
     const topicName = pageContext.name
     const topicSlug = pageContext.slug
 
+    const posts = allHubspotPost.edges.map(e => e.node)
+
     return (
       <Layout location={this.props.location}>
         <Link to={'/'}>Back</Link>
         <div>Topic ID: {topicID}</div>
         <div>Topic Name: {topicName}</div>
         <div>Topic Slug: {topicSlug}</div>
-        <pre>{JSON.stringify(allHubspotPost, null, 2)}</pre>
+        {posts && posts.map((post, i) => renderPost(post, i))}
       </Layout>
     )
   }
